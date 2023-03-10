@@ -5,50 +5,61 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import {
-  demoThumbnailUrl,
-  demoVideoUrl,
-  demoVideoTitle,
-  demoChannelTitle,
-} from "../utils/constant";
-const ChannelCart = ({
-  channelDetails: {
-    id: { channelId },
-    snippet,
-  },
-}) => {
-console.log(snippet);
+import { Link } from "react-router-dom";
+import { demoThumbnailUrl, demoChannelTitle } from "../utils/constant";
+const ChannelCart = ({ channelDetails }) => {
+  console.log(channelDetails);
   return (
     <Card
       sx={{
-        width: { xs: "100%", md: 345 },
+        width: { xs: "100%", md: 300 },
         background: "transparent",
         color: "#fff",
+        boxShadow: "none",
       }}
     >
-      <CardActionArea>
+      <Link to={"/channel/" + channelDetails?.id?.channelId}>
         <CardMedia
           component="img"
           height="200px"
-          sx={{borderRadius:"50%",width:"200px",mx:"auto",mt:2}}
+          sx={{ borderRadius: "50%", width: "200px", mx: "auto", mt: 2 }}
           image={
-            snippet?.thumbnails
-              ? snippet?.thumbnails?.high?.url
+            channelDetails?.snippet?.thumbnails
+              ? channelDetails?.snippet?.thumbnails?.high?.url
               : demoThumbnailUrl
           }
           alt="green iguana"
         />
-        <CardContent sx={{ height: "60px",textAlign:"center" }}>
-         
+      </Link>
+      <CardContent sx={{ height: "60px", textAlign: "center" }}>
+        <Link to={"/channel/" + channelDetails?.id?.channelId}>
           <Typography
             variant="subtitle1"
-            sx={{ display: "flex", alignItems: "center",justifyContent: "center"}}
+            color="white"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
-            {snippet?.channelTitle ? snippet?.channelTitle : demoChannelTitle}{" "}
+            {channelDetails?.snippet?.channelTitle
+              ? channelDetails?.snippet?.channelTitle
+              : demoChannelTitle}{" "}
             <CheckCircleIcon sx={{ fontSize: "15px", ml: 1 }} />
           </Typography>
-        </CardContent>
-      </CardActionArea>
+          <Typography
+            variant="subtitle2"
+            color="gray"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {channelDetails?.statistics?.subscriberCount} Subscribers
+          </Typography>
+        </Link>
+      </CardContent>
     </Card>
   );
 };
