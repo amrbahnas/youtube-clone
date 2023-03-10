@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import Skeleton from "@mui/material/Skeleton";
 import { Link } from "react-router-dom";
 import {
   demoThumbnailUrl,
@@ -24,48 +25,72 @@ const VideoCart = ({
         width: { xs: "100%", sm: "358px", md: "320px" },
         background: "#1e1e1e",
         color: "#fff",
+        borderRadius: 2,
       }}
     >
       <CardActionArea>
         <Link to={"/video/" + videoId}>
-          <CardMedia
-            sx={{
-              width: {
-                xs: "100%",
-                sm: "358px",
-                md: "320px",
-              },
-              height: 180,
-            }}
-            component="img"
-            image={
-              snippet?.thumbnails
-                ? snippet?.thumbnails?.high?.url
-                : demoThumbnailUrl
-            }
-            alt="green iguana"
-          />
+          {snippet?.thumbnails ? (
+            <CardMedia
+              sx={{
+                width: {
+                  xs: "100%",
+                  sm: "358px",
+                  md: "320px",
+                },
+                height: 180,
+              }}
+              component="img"
+              image={snippet?.thumbnails?.high?.url}
+              alt="green iguana"
+            />
+          ) : (
+            <Skeleton
+              variant="rounded"
+              sx={{
+                width: {
+                  xs: "100%",
+                  sm: "358px",
+                  md: "320px",
+                },
+                height: 180,
+              }}
+            />
+          )}
         </Link>
         <CardContent height="106px">
-          <Link to={"/video/" + videoId}>
-            <Typography
-              gutterBottom
-              variant="subtitle1"
-              color="white"
-              fontWeight="bold"
-              noWrap
-            >
-              {snippet?.title ? snippet?.title?.slice(0, 50) : demoVideoTitle}
-            </Typography>
-          </Link>
-          <Typography
-            variant="body2"
-            color="gray"
-            sx={{ display: "flex", alignItems: "center" }}
-          >
-            {snippet?.channelTitle ? snippet?.channelTitle : demoChannelTitle}{" "}
-            <CheckCircleIcon sx={{ fontSize: "15px", ml: 1 }} />
-          </Typography>
+          {snippet?.title ? (
+            <>
+              <Link to={"/video/" + videoId}>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  color="white"
+                  fontWeight="bold"
+                  noWrap
+                >
+                  {snippet?.title
+                    ? snippet?.title?.slice(0, 50)
+                    : demoVideoTitle}
+                </Typography>
+              </Link>
+              <Typography
+                variant="body2"
+                color="gray"
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                {snippet?.channelTitle
+                  ? snippet?.channelTitle
+                  : demoChannelTitle}{" "}
+                <CheckCircleIcon sx={{ fontSize: "15px", ml: 1 }} />
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Skeleton />
+              <Skeleton width="60%" />
+            </>
+          )}
         </CardContent>
       </CardActionArea>
     </Card>

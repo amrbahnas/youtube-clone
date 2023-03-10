@@ -7,7 +7,7 @@ const SearchBar = () => {
   const [searchTerm, setsearchTerm] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("search/" + searchTerm);
+    if (searchTerm) navigate("search/" + searchTerm);
   };
   return (
     <Paper
@@ -15,10 +15,12 @@ const SearchBar = () => {
       onSubmit={submitHandler}
       sx={{
         borderRadius: 20,
-        border: "1px solid #e3e3e3",
+        border: "1px solid #303030",
         pl: 2,
         boxShadow: "none",
         mr: { sm: 5 },
+        backgroundColor: "transparent",
+        cursor: "pointer"
       }}
     >
       <input
@@ -30,7 +32,7 @@ const SearchBar = () => {
         className="search-bar"
         onChange={(e) => setsearchTerm(e.target.value)}
       />
-      <IconButton type="submit" sx={{ p: "10px", color: "red" }}>
+      <IconButton type="submit" sx={{ p: "10px", color: "#fff" }}>
         <SearchIcon />
       </IconButton>
     </Paper>

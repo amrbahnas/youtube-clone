@@ -3,12 +3,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Link } from "react-router-dom";
 import { demoThumbnailUrl, demoChannelTitle } from "../utils/constant";
 const ChannelCart = ({ channelDetails }) => {
-  console.log(channelDetails);
   return (
     <Card
       sx={{
@@ -19,17 +18,21 @@ const ChannelCart = ({ channelDetails }) => {
       }}
     >
       <Link to={"/channel/" + channelDetails?.id?.channelId}>
-        <CardMedia
-          component="img"
-          height="200px"
-          sx={{ borderRadius: "50%", width: "200px", mx: "auto", mt: 2 }}
-          image={
-            channelDetails?.snippet?.thumbnails
-              ? channelDetails?.snippet?.thumbnails?.high?.url
-              : demoThumbnailUrl
-          }
-          alt="green iguana"
-        />
+        {channelDetails?.snippet?.thumbnails ? (
+          <CardMedia
+            component="img"
+            height="200px"
+            sx={{ borderRadius: "50%", width: "200px", mx: "auto", mt: 2 }}
+            image={
+              channelDetails?.snippet?.thumbnails
+                ? channelDetails?.snippet?.thumbnails?.high?.url
+                : demoThumbnailUrl
+            }
+            alt="green iguana"
+          />
+        ) : (
+          <Skeleton variant="circular" width="200px" height="200px" />
+        )}
       </Link>
       <CardContent sx={{ height: "60px", textAlign: "center" }}>
         <Link to={"/channel/" + channelDetails?.id?.channelId}>
@@ -56,7 +59,10 @@ const ChannelCart = ({ channelDetails }) => {
               justifyContent: "center",
             }}
           >
-            {channelDetails?.statistics?.subscriberCount} Subscribers
+            {parseInt(
+              channelDetails?.statistics?.subscriberCount
+            ).toLocaleString()}{" "}
+            Subscribers
           </Typography>
         </Link>
       </CardContent>

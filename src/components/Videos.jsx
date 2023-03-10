@@ -11,13 +11,14 @@ const Videos = ({ videosData, direction }) => {
         flexWrap: "wrap",
         gap: 2,
         justifyContent: "center",
+        alignItems: "center",
       }}
     >
       {videosData?.map((item) =>
         item.id.channelId ? (
           <ChannelCart channelDetails={item} key={item.id.channelId} />
         ) : (
-          <VideoCart video={item} key={item.id.channelId} />
+          <VideoCart video={item} key={item.id.videoId} />
         )
       )}
     </Stack>
