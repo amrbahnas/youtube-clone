@@ -7,12 +7,8 @@ import { CardActionArea } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Skeleton from "@mui/material/Skeleton";
 import { Link } from "react-router-dom";
-import {
-  demoThumbnailUrl,
-  demoVideoUrl,
-  demoVideoTitle,
-  demoChannelTitle,
-} from "../utils/constant";
+import { motion } from "framer-motion";
+import { demoVideoTitle, demoChannelTitle } from "../utils/constant";
 const VideoCart = ({
   video: {
     id: { videoId },
@@ -27,6 +23,10 @@ const VideoCart = ({
         color: "#fff",
         borderRadius: 2,
       }}
+      component={motion.div}
+      initial={{ opacity: 0.5 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
     >
       <CardActionArea>
         <Link to={"/video/" + videoId}>
@@ -41,6 +41,7 @@ const VideoCart = ({
                 height: 180,
               }}
               component="img"
+              loading="lazy"
               image={snippet?.thumbnails?.high?.url}
               alt="green iguana"
             />

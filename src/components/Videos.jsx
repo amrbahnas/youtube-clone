@@ -1,27 +1,67 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Stack, Box } from "@mui/material";
 import VideoCart from "./VideoCart";
 import ChannelCart from "./ChannelCart";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 const Videos = ({ videosData, direction }) => {
+  const [visiableVideos, setvisiableVideos] = useState([]);
+  const [videsIndex, setvidesIndex] = useState(10);
+  const [more, setmore] = useState(true);
+  console.log(videosData);
+  console.log(visiableVideos);
+  useEffect(() => {
+    setvisiableVideos(videosData.slice(0, videsIndex));
+  }, [videosData]);
+
+  const fetchMoreData = () => {
+    if (visiableVideos.length < videosData.length) {
+      setTimeout(() => {
+        setvisiableVideos([
+          ...visiableVideos,
+          ...videosData.slice(videsIndex, 10 + videsIndex),
+        ]);
+        setvidesIndex(videsIndex + 10);
+      }, 1000);
+    } else {
+      setmore(false);
+    }
+  };
+
   return (
-    <Stack
-      direction={direction || "row"}
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: 2,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+    <InfiniteScroll
+      dataLength={visiableVideos.length}
+      next={fetchMoreData}
+      hasMore={more}
+      height={"90vh"}
+      loader={
+        <h4 style={{ textAlign: "center", color: "white" }}>Loading...</h4>
+      }
+      endMessage={
+        <p style={{ textAlign: "center", color: "white" }}>
+          <b>Yay! You have seen it all</b>
+        </p>
+      }
     >
-      {videosData?.map((item) =>
-        item.id.channelId ? (
-          <ChannelCart channelDetails={item} key={item.id.channelId} />
-        ) : (
-          <VideoCart video={item} key={item.id.videoId} />
-        )
-      )}
-    </Stack>
+      <Stack
+        direction={direction || "row"}
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 2,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {visiableVideos?.map((item) =>
+          item.id.channelId ? (
+            <ChannelCart channelDetails={item} key={item.id.channelId} />
+          ) : (
+            <VideoCart video={item} key={item.id.videoId} />
+          )
+        )}
+      </Stack>
+    </InfiniteScroll>
   );
 };
 

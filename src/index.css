@@ -45,8 +45,9 @@ a {
   outline: none;
   width: 350px;
   font-size: 18px;
-  background-color: transparent ;
+  background-color: transparent;
   color: white;
+  padding: 10px 2px;
 }
 
 .category-btn {
