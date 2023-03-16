@@ -33,7 +33,7 @@ const Videos = ({ videosData, direction }) => {
       dataLength={visiableVideos.length}
       next={fetchMoreData}
       hasMore={more}
-      height={"90vh"}
+      height={"100vh"}
       loader={
         <h4 style={{ textAlign: "center", color: "white" }}>Loading...</h4>
       }

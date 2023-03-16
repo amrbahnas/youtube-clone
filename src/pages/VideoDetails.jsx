@@ -94,7 +94,7 @@ const VideoDetails = () => {
               </Accordion>
             </Box>
           </Box>
-          <Box height="100vh" overflow="auto" sx={{ ml: { xs: 0, md: 2 } }}>
+          <Box sx={{ ml: { xs: 0, md: 2 } }}>
             <Videos videosData={relatedVideos} direction="column" />
           </Box>
         </Stack>

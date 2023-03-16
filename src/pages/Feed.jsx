@@ -16,7 +16,11 @@ const Feed = () => {
   return (
     <>
       {loading && <LinearProgress color="error" />}
-      <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
+      <Stack
+        sx={{
+          flexDirection: { sx: "column", md: "row" },
+        }}
+      >
         <Box
           sx={{
             height: { sx: "auto", md: "90vh" },
@@ -39,8 +43,6 @@ const Feed = () => {
         <Box
           p={2}
           sx={{
-            overflowY: "auto",
-            height: "90vh",
             flex: 2,
           }}
         >
