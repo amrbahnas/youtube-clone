@@ -8,8 +8,6 @@ const Videos = ({ videosData, direction }) => {
   const [visiableVideos, setvisiableVideos] = useState([]);
   const [videsIndex, setvidesIndex] = useState(10);
   const [more, setmore] = useState(true);
-  console.log(videosData);
-  console.log(visiableVideos);
   useEffect(() => {
     setvisiableVideos(videosData.slice(0, videsIndex));
   }, [videosData]);

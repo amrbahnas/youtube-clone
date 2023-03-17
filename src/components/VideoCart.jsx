@@ -1,4 +1,4 @@
-import React from "react";
+import { useRef } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Skeleton from "@mui/material/Skeleton";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { demoVideoTitle, demoChannelTitle } from "../utils/constant";
 const VideoCart = ({
@@ -15,8 +15,16 @@ const VideoCart = ({
     snippet,
   },
 }) => {
+  const navigate = useNavigate();
+  const cart = useRef();
+  const videoNavigate = () => {
+    cart.current.parentElement.parentElement.scrollTop = 0;
+    window.scrollTo(0, 0);
+    navigate("/video/" + videoId);
+  };
   return (
     <Card
+      ref={cart}
       sx={{
         width: { xs: "100%", sm: "358px", md: "320px" },
         background: "#1e1e1e",
@@ -29,7 +37,7 @@ const VideoCart = ({
       viewport={{ once: true }}
     >
       <CardActionArea>
-        <Link to={"/video/" + videoId}>
+        <span onClick={videoNavigate}>
           {snippet?.thumbnails ? (
             <CardMedia
               sx={{
@@ -58,11 +66,11 @@ const VideoCart = ({
               }}
             />
           )}
-        </Link>
+        </span>
         <CardContent height="106px">
           {snippet?.title ? (
             <>
-              <Link to={"/video/" + videoId}>
+              <span onClick={videoNavigate}>
                 <Typography
                   gutterBottom
                   variant="subtitle1"
@@ -74,7 +82,7 @@ const VideoCart = ({
                     ? snippet?.title?.slice(0, 50)
                     : demoVideoTitle}
                 </Typography>
-              </Link>
+              </span>
               <Typography
                 variant="body2"
                 color="gray"
