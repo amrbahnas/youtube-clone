@@ -41,28 +41,6 @@ const VideoDetails = () => {
     statistics: { viewCount, likeCount },
   } = videoInfo;
 
-  async function downloadVideo() {
-    console.log("Downloading video");
-    const videoUrl = `https://www.youtube.com/watch?v=${id}_channel=${channelTitle}`;
-
-    const apiUrl = `https://en.savefrom.net/sf.php?url=${encodeURIComponent(
-      videoUrl
-    )}&output=json`;
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      if (data.url) {
-        // The video was found and downloaded successfully
-        return data.url;
-      } else {
-        // There was an error downloading the video
-        throw new Error(`Could not download video from ${videoUrl}`);
-      }
-    } catch (error) {
-      console.error(error);
-      throw new Error(`Could not download video from ${videoUrl}`);
-    }
-  }
   return (
     <>
       {loading && <LinearProgress color="error" />}
@@ -102,15 +80,24 @@ const VideoDetails = () => {
                   <Typography sx={{ opacity: 0.7 }} variant="body1">
                     {parseInt(likeCount).toLocaleString()} likes
                   </Typography>
-                  <Typography
-                    sx={{ opacity: 1, display: "flex", cursor: "pointer" }}
+                  <Box
+                    sx={{
+                      opacity: 0.7,
+                      display: "flex",
+                      cursor: "pointer",
+                      color: "white",
+                      ":hover": {
+                        opacity: 1,
+                      },
+                    }}
                     alignItems={"center"}
-                    variant="body1"
-                    onClick={downloadVideo}
+                    component={"a"}
+                    href={`https://ar.savefrom.net/245/https://www.youtube.com/watch?v=${id}`}
+                    target={"_blank"}
                   >
                     <DownloadIcon />
                     Download
-                  </Typography>
+                  </Box>
                 </Stack>
               </Stack>
               <Accordion sx={{ background: "#272727", color: "#fff", mt: 2 }}>
