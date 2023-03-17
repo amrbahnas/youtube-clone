@@ -20,7 +20,7 @@ const Videos = ({ videosData, direction }) => {
           ...videosData.slice(videsIndex, 10 + videsIndex),
         ]);
         setvidesIndex(videsIndex + 10);
-      }, 1000);
+      }, 1100);
     } else {
       setmore(false);
     }
