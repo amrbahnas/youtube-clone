@@ -14,12 +14,14 @@ const VideoCart = ({
     id: { videoId },
     snippet,
   },
+  setvidesIndex,
 }) => {
   const navigate = useNavigate();
   const cart = useRef();
   const videoNavigate = () => {
     cart.current.parentElement.parentElement.scrollTop = 0;
     window.scrollTo(0, 0);
+    setvidesIndex(10);
     navigate("/video/" + videoId);
   };
   return (

@@ -55,7 +55,11 @@ const Videos = ({ videosData, direction }) => {
           item.id.channelId ? (
             <ChannelCart channelDetails={item} key={item.id.channelId} />
           ) : (
-            <VideoCart video={item} key={item.id.videoId} />
+            <VideoCart
+              video={item}
+              key={item.id.videoId}
+              setvidesIndex={setvidesIndex}
+            />
           )
         )}
       </Stack>
